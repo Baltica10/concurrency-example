@@ -14,7 +14,7 @@ class SpringfoxConfig {
     fun docket(): Docket {
         return Docket(DocumentationType.SWAGGER_2)
             .useDefaultResponseMessages(false)
-            .select().apis(RequestHandlerSelectors.basePackage("com.example.processingconcurrency"))
+            .select().apis(RequestHandlerSelectors.basePackage("com.example.concurrency"))
             .paths(PathSelectors.any())
             .build()
     }

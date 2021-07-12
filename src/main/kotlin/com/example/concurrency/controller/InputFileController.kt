@@ -16,7 +16,10 @@ class InputFileController(
     private val serialFileProcessingService: FileProcessingService,
 
     @Qualifier("threadPoolFileProcessingServiceImpl")
-    private val threadPoolFileProcessingService: FileProcessingService
+    private val threadPoolFileProcessingService: FileProcessingService,
+
+    @Qualifier("coroutinesFileProcessingServiceImpl")
+    private val coroutinesFileProcessingService: FileProcessingService
 ) {
 
     @PostMapping(path = ["/serial"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
@@ -37,6 +40,16 @@ class InputFileController(
         ) @RequestPart("files") files: List<MultipartFile>
     ): ResponseEntity<List<Map<String, String>>> {
         return ResponseEntity.ok(threadPoolFileProcessingService.processFiles(files))
+    }
+
+    @PostMapping(path = ["/сoroutines"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun сoroutinesProcessFiles(
+        @ApiParam(
+            value = "files",
+            required = true
+        ) @RequestPart("files") files: List<MultipartFile>
+    ): ResponseEntity<List<Map<String, String>>> {
+        return ResponseEntity.ok(coroutinesFileProcessingService.processFiles(files))
     }
 
 }
